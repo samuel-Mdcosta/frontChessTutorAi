@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AI Coach Report Center</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#10b77f",
+              "background-light": "#f6f8f7",
+              "background-dark": "#10221c",
+              "slate-custom": "#0f172a",
+            },
+            fontFamily: {
+              display: ["Space Grotesk", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .glass-container {
+        background: rgba(30, 41, 59, 0.5);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .pulse-glow {
+        box-shadow: 0 0 0 0 rgba(16, 183, 127, 0.4);
+        animation: pulse-ring 2s infinite;
+      }
+      @keyframes pulse-ring {
+        0% {
+          box-shadow: 0 0 0 0 rgba(16, 183, 127, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 15px rgba(16, 183, 127, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(16, 183, 127, 0);
+        }
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-display text-white"
+  >
+    <div
+      class="relative flex h-screen w-full flex-col overflow-hidden max-w-[430px] mx-auto border-x border-white/5 shadow-2xl"
+    >
+      <!-- Top App Bar -->
+      <div
+        class="flex items-center bg-background-dark p-4 pb-2 justify-between shrink-0"
+      >
+        <div class="text-white flex size-12 shrink-0 items-center">
+          <span class="material-symbols-outlined cursor-pointer"
+            >arrow_back_ios</span
+          >
+        </div>
+        <h2
+          class="text-white text-lg font-bold leading-tight tracking-tight flex-1 text-center"
+        >
+          Coach AI
+        </h2>
+        <div class="flex w-12 items-center justify-end">
+          <button
+            class="flex items-center justify-center rounded-lg h-12 bg-transparent text-white p-0"
+          >
+            <span class="material-symbols-outlined">settings</span>
+          </button>
+        </div>
+      </div>
+      <div class="flex-1 overflow-y-auto pb-24">
+        <!-- Summary Stats Card -->
+        <div class="flex flex-wrap gap-3 p-4">
+          <div
+            class="flex min-w-[110px] flex-1 flex-col gap-1 rounded-xl p-4 bg-primary/10 border border-primary/20"
+          >
+            <p
+              class="text-primary/70 text-xs font-medium uppercase tracking-wider"
+            >
+              Accuracy
+            </p>
+            <p class="text-white text-2xl font-bold">84.2%</p>
+          </div>
+          <div
+            class="flex min-w-[110px] flex-1 flex-col gap-1 rounded-xl p-4 bg-primary/10 border border-primary/20"
+          >
+            <p
+              class="text-primary/70 text-xs font-medium uppercase tracking-wider"
+            >
+              Mistakes
+            </p>
+            <p class="text-white text-2xl font-bold">2</p>
+          </div>
+          <div
+            class="flex min-w-[110px] flex-1 flex-col gap-1 rounded-xl p-4 bg-primary/10 border border-primary/20"
+          >
+            <p
+              class="text-primary/70 text-xs font-medium uppercase tracking-wider"
+            >
+              ELO Perf.
+            </p>
+            <p class="text-white text-2xl font-bold">2150</p>
+          </div>
+        </div>
+        <!-- Main CTA -->
+        <div class="px-4 py-2">
+          <button
+            class="pulse-glow flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-5 bg-gradient-to-r from-primary to-[#0d8a61] text-background-dark gap-3 text-base font-bold transition-all active:scale-[0.98]"
+          >
+            <span class="material-symbols-outlined">auto_awesome</span>
+            <span class="truncate">Generate Full AI Report</span>
+          </button>
+        </div>
+        <!-- Report Section Header -->
+        <div class="flex items-center justify-between px-4 pb-2 pt-6">
+          <h2 class="text-white text-xl font-bold leading-tight tracking-tight">
+            AI Analysis
+          </h2>
+          <span
+            class="text-xs text-primary bg-primary/10 px-2 py-1 rounded-full border border-primary/20"
+            >V4.2 Pro</span
+          >
+        </div>
+        <!-- Main Glassmorphism Container -->
+        <div class="px-4 pb-6">
+          <div
+            class="glass-container min-h-[400px] rounded-2xl flex flex-col p-6"
+          >
+            <!-- This area shows the Empty State or the Report Content -->
+            <!-- Empty State Placeholder -->
+            <div class="flex flex-col items-center justify-center py-12 gap-8">
+              <div class="relative">
+                <div
+                  class="absolute inset-0 bg-primary/20 blur-3xl rounded-full"
+                ></div>
+                <div
+                  class="relative bg-background-dark/80 p-6 rounded-full border border-primary/30 flex items-center justify-center"
+                >
+                  <span
+                    class="material-symbols-outlined text-primary text-6xl"
+                    style="font-variation-settings: 'FILL' 1"
+                    >psychology</span
+                  >
+                </div>
+              </div>
+              <div class="flex max-w-[280px] flex-col items-center gap-3">
+                <p
+                  class="text-white text-xl font-bold leading-tight text-center"
+                >
+                  Analise completa de seu jogos com IA
+                </p>
+              </div>
+              <button
+                class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-full h-10 px-6 bg-white/10 text-white text-sm font-semibold border border-white/10 hover:bg-white/20"
+              >
+                <span>Begin Analysis</span>
+              </button>
+            </div>
+            <!-- Hidden by default: Example of generated report content -->
+            <!-- 
+                    <div class="space-y-6">
+                        <section>
+                            <h3 class="text-primary text-lg font-bold mb-2">Strategic Overview</h3>
+                            <p class="text-slate-200 text-sm leading-relaxed">Your opening play demonstrated strong theoretical knowledge of the <span class="text-primary">Sicilian Defense</span>. However, the transition to the middlegame at move 14 lacked the necessary central tension.</p>
+                        </section>
+                        <section>
+                            <h3 class="text-primary text-lg font-bold mb-2">Technical Insights</h3>
+                            <ul class="space-y-2 text-sm text-slate-300">
+                                <li class="flex items-start gap-2">
+                                    <span class="material-symbols-outlined text-primary text-xs mt-1">check_circle</span>
+                                    <span>Excellent pawn structure maintenance in the endgame.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="material-symbols-outlined text-red-400 text-xs mt-1">error</span>
+                                    <span>Missed tactical opportunity on move 22 (Nxd5!).</span>
+                                </li>
+                            </ul>
+                        </section>
+                    </div>
+                    -->
+          </div>
+        </div>
+      </div>
+      <!-- iOS Bottom Tab Bar -->
+      <div
+        class="absolute bottom-0 w-full h-20 bg-background-dark/80 backdrop-blur-xl border-t border-white/10 flex items-center justify-around px-4 pb-4"
+      >
+        <div class="flex flex-col items-center gap-1 text-primary">
+          <span
+            class="material-symbols-outlined text-[28px]"
+            style="font-variation-settings: 'FILL' 1"
+            >analytics</span
+          >
+          <span class="text-[10px] font-bold">Analysis</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-slate-500">
+          <span class="material-symbols-outlined text-[28px]">school</span>
+          <span class="text-[10px] font-medium">Lessons</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-slate-500">
+          <span class="material-symbols-outlined text-[28px]"
+            >account_tree</span
+          >
+          <span class="text-[10px] font-medium">Openings</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-slate-500">
+          <span class="material-symbols-outlined text-[28px]">history</span>
+          <span class="text-[10px] font-medium">History</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-slate-500">
+          <div
+            class="w-7 h-7 rounded-full bg-slate-700 overflow-hidden border border-white/20"
+          >
+            <img
+              class="w-full h-full object-cover"
+              data-alt="User profile avatar placeholder"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAs2t42pbF-haaIMMRtxIwkoaWsFf_AbhUtlbefRbBQFwtpjSnpjAtPCqOXaf06PjMOUC0xsCFxzGhTMGSCJ-RsiJfzlnqwOgELANNkcdJICT_vCkE7Jbf0Hyn9R8u9KbKKD0btL3gqtc_pgrkmgH9LCukTO93C_8Kwk_rBGVJTimXfOS-cEZ_nDO_8Mal8ZDmP--H-t48j_fy_sxpuh4DTFJL8A4rUcqGNB9yPfxxVEViJ6jsQ2g-UphSeqer0sX7MPjNaOZHUSBE"
+            />
+          </div>
+          <span class="text-[10px] font-medium">Profile</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!DOCTYPE html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Chess Game History List</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#10b77f",
+              "slate-900": "#0f172a",
+              "slate-800": "#1e293b",
+            },
+            fontFamily: {
+              display: ["Space Grotesk", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              "2xl": "1rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer utilities {
+        .glass-card {
+          @apply bg-slate-800/50 backdrop-blur-md border border-white/10;
+        }
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body class="bg-slate-900 font-display text-white">
+    <div
+      class="relative flex h-screen w-full flex-col overflow-hidden max-w-[430px] mx-auto border-x border-white/5 shadow-2xl"
+    >
+      <div
+        class="flex items-center bg-slate-900/80 backdrop-blur-lg p-4 pb-4 justify-between shrink-0 z-10"
+      >
+        <h1 class="text-white text-2xl font-bold leading-tight tracking-tight">
+          Recent Games
+        </h1>
+        <div class="flex items-center gap-3">
+          <button
+            class="flex items-center justify-center rounded-full size-10 bg-slate-800/50 text-white border border-white/10"
+          >
+            <span class="material-symbols-outlined text-[22px]"
+              >filter_list</span
+            >
+          </button>
+          <button
+            class="flex items-center justify-center rounded-full size-10 bg-slate-800/50 text-white border border-white/10"
+          >
+            <span class="material-symbols-outlined text-[22px]">search</span>
+          </button>
+        </div>
+      </div>
+      <div class="flex-1 overflow-y-auto px-4 pt-2 pb-24 space-y-3">
+        <div
+          class="glass-card p-4 rounded-2xl flex items-center justify-between transition-all active:scale-[0.98] cursor-pointer"
+        >
+          <div class="flex items-center gap-4">
+            <div class="relative">
+              <div
+                class="size-12 rounded-full bg-slate-700 flex items-center justify-center overflow-hidden border border-white/10"
+              >
+                <img
+                  alt="Opponent"
+                  class="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBqjT5Acckio014gZxgtwb2dKUfpjWrh3jQchy0cDmiiw-JMDQ2vq_HfPJKkHk9TeNZnlh27rqiA2vu84kvLgxKE89Mj-wUSTW7RsRs6GtcT4JJGzz8lBj4rUQMeMKcZp015jn5wPNLpqk-MfSnQE6Zp8Ydy7HdtXf8D1A6_zEYkUBylexYBMgE3dpdQI30kZnn8XpLG02sjXAtyI_s4wyOUBfRs_0J7mvBFuwzKNYdb78XC1I-_KAJB2e4ZMNcwemKJ5hS7yYsLE"
+                />
+              </div>
+              <div
+                class="absolute -bottom-1 -right-1 size-5 bg-emerald-500 rounded-full border-2 border-slate-900 flex items-center justify-center"
+              >
+                <span
+                  class="material-symbols-outlined text-[12px] text-white font-bold"
+                  >check</span
+                >
+              </div>
+            </div>
+            <div class="flex flex-col gap-0.5">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-white text-base"
+                  >Grandmaster_Alex</span
+                >
+                <span
+                  class="bg-emerald-500/10 text-emerald-400 text-[10px] font-bold px-1.5 py-0.5 rounded border border-emerald-500/20 uppercase tracking-wider"
+                  >Win</span
+                >
+              </div>
+              <div class="flex items-center gap-2 text-slate-400 text-xs">
+                <span>Today, 14:20</span>
+                <span class="size-1 bg-slate-600 rounded-full"></span>
+                <span class="flex items-center gap-1 text-primary">
+                  <span class="material-symbols-outlined text-[14px]"
+                    >auto_awesome</span
+                  >
+                  AI Analyzed
+                </span>
+              </div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-slate-500"
+            >chevron_right</span
+          >
+        </div>
+        <div
+          class="glass-card p-4 rounded-2xl flex items-center justify-between transition-all active:scale-[0.98] cursor-pointer"
+        >
+          <div class="flex items-center gap-4">
+            <div class="relative">
+              <div
+                class="size-12 rounded-full bg-slate-700 flex items-center justify-center overflow-hidden border border-white/10"
+              >
+                <img
+                  alt="Opponent"
+                  class="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcIJKl3kFaq4yDCP1taKQvxuEaMC_JGRDBf_IgapKQmyM4H1K0-ITtUM8wZJ5YW-yAWCCQpKLVGH0A4M_rtKXi07r9SoBZUnAwFQ8b7luoOJPJilv3rrS6Q85b9s2Qpv6hUhq1xnS74Sdwp_bRiubNy0CBsvy1OM_Qg-MF7rV4wEdhaN311XBDSkkLO85Eyc6D288zAqV7WhCCDxS64-70fn5n-r4AWWqZTKnyunurvwhnSHth71rV9aCOqqBHzPy16Vf0_xkNyNo"
+                />
+              </div>
+              <div
+                class="absolute -bottom-1 -right-1 size-5 bg-rose-500 rounded-full border-2 border-slate-900 flex items-center justify-center"
+              >
+                <span
+                  class="material-symbols-outlined text-[12px] text-white font-bold"
+                  >close</span
+                >
+              </div>
+            </div>
+            <div class="flex flex-col gap-0.5">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-white text-base">ChessQueen99</span>
+                <span
+                  class="bg-rose-500/10 text-rose-400 text-[10px] font-bold px-1.5 py-0.5 rounded border border-rose-500/20 uppercase tracking-wider"
+                  >Loss</span
+                >
+              </div>
+              <div class="flex items-center gap-2 text-slate-400 text-xs">
+                <span>Yesterday, 21:05</span>
+                <span class="size-1 bg-slate-600 rounded-full"></span>
+                <span class="flex items-center gap-1 text-primary">
+                  <span class="material-symbols-outlined text-[14px]"
+                    >auto_awesome</span
+                  >
+                  AI Analyzed
+                </span>
+              </div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-slate-500"
+            >chevron_right</span
+          >
+        </div>
+        <div
+          class="glass-card p-4 rounded-2xl flex items-center justify-between transition-all active:scale-[0.98] cursor-pointer"
+        >
+          <div class="flex items-center gap-4">
+            <div class="relative">
+              <div
+                class="size-12 rounded-full bg-slate-700 flex items-center justify-center overflow-hidden border border-white/10"
+              >
+                <img
+                  alt="Opponent"
+                  class="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCroLVlB3YRH24zcIxRRsRB3rAhAGwaPEuBGlTWK6TkeqsF3um7QvZaYFUPB6wTYiLgNuSBnBspDX5DRzXlCh74JeTp-Xn7nk9h2lz9n2CEqcQk1c8Abe035pjakcNh3zTQP0wFCDikcnYdhBRGGUksOX1vYStXaXA5S66HM4rib2Ykly2Sqerf3Z-a4ggqr3gOtIx3Z8p1wkPuJs9_2YqucoSwea1LQgRfGv6JLrUfRNSBOSKw6vwqOJDF_rmj3oKfUPlqh5AZd-k"
+                />
+              </div>
+              <div
+                class="absolute -bottom-1 -right-1 size-5 bg-slate-500 rounded-full border-2 border-slate-900 flex items-center justify-center"
+              >
+                <span
+                  class="material-symbols-outlined text-[12px] text-white font-bold"
+                  >remove</span
+                >
+              </div>
+            </div>
+            <div class="flex flex-col gap-0.5">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-white text-base"
+                  >DeepBlueReborn</span
+                >
+                <span
+                  class="bg-slate-500/10 text-slate-400 text-[10px] font-bold px-1.5 py-0.5 rounded border border-slate-500/20 uppercase tracking-wider"
+                  >Draw</span
+                >
+              </div>
+              <div class="flex items-center gap-2 text-slate-400 text-xs">
+                <span>Oct 24, 2023</span>
+              </div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-slate-500"
+            >chevron_right</span
+          >
+        </div>
+        <div
+          class="glass-card p-4 rounded-2xl flex items-center justify-between transition-all active:scale-[0.98] cursor-pointer"
+        >
+          <div class="flex items-center gap-4">
+            <div class="relative">
+              <div
+                class="size-12 rounded-full bg-slate-700 flex items-center justify-center overflow-hidden border border-white/10"
+              >
+                <img
+                  alt="Opponent"
+                  class="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBqcw78hmqE_QMlajYamKnViNtQCZrqRzRIBrDVuosvG8jTHDzigDf4bFLIPq7Ag8QsTjhln_9rT6EHGTfu9E7IRMFwCLaSHv4M2Si0DfYb2YIvAEtVPW1EoZxTGyZ1FERRHn4WpN5yyMBN-K29RKjciGOnxoB4d6N2GinJ8Qgdma6C_SvDvdH1tDIHMx2VHGYYapiRmO8Ps4tDFrBVlsj1x7QeL8PNWMiOgJe99xTOfMBartMzBbwQ0C7nqQjXK67_T87lvn5vqc"
+                />
+              </div>
+              <div
+                class="absolute -bottom-1 -right-1 size-5 bg-emerald-500 rounded-full border-2 border-slate-900 flex items-center justify-center"
+              >
+                <span
+                  class="material-symbols-outlined text-[12px] text-white font-bold"
+                  >check</span
+                >
+              </div>
+            </div>
+            <div class="flex flex-col gap-0.5">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-white text-base">Elena_V</span>
+                <span
+                  class="bg-emerald-500/10 text-emerald-400 text-[10px] font-bold px-1.5 py-0.5 rounded border border-emerald-500/20 uppercase tracking-wider"
+                  >Win</span
+                >
+              </div>
+              <div class="flex items-center gap-2 text-slate-400 text-xs">
+                <span>Oct 22, 2023</span>
+                <span class="size-1 bg-slate-600 rounded-full"></span>
+                <span class="flex items-center gap-1 text-primary">
+                  <span class="material-symbols-outlined text-[14px]"
+                    >auto_awesome</span
+                  >
+                  AI Analyzed
+                </span>
+              </div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-slate-500"
+            >chevron_right</span
+          >
+        </div>
+        <div
+          class="glass-card p-4 rounded-2xl flex items-center justify-between transition-all active:scale-[0.98] cursor-pointer"
+        >
+          <div class="flex items-center gap-4">
+            <div class="relative">
+              <div
+                class="size-12 rounded-full bg-slate-700 flex items-center justify-center overflow-hidden border border-white/10"
+              >
+                <img
+                  alt="Opponent"
+                  class="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaULkvnHgBJXzV0xlbj3JWThNWfCQOjE4HuVJk0SQGsoFSkuU5mP40mH3HEgFj1eueRmtzQ-qmuMtJWRZ-gO-NgxYWgyTHzVIkwzv5h9qESefUD-gJXBNBZAMVTeL10w_KWvt2hUvP6oeR9qkjGWwkol7c3YySjR_ACTK8ScOeAC6BCfRG9WPOjFadvLBVb99_lMJaLkv6CvjexH8edcC9tFEUqnCG_HNq97o0mQfO0lZpDKL6EbuFQu8GcJtZoCWazS8DKSE1ml0"
+                />
+              </div>
+              <div
+                class="absolute -bottom-1 -right-1 size-5 bg-rose-500 rounded-full border-2 border-slate-900 flex items-center justify-center"
+              >
+                <span
+                  class="material-symbols-outlined text-[12px] text-white font-bold"
+                  >close</span
+                >
+              </div>
+            </div>
+            <div class="flex flex-col gap-0.5">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-white text-base">MarkTheFish</span>
+                <span
+                  class="bg-rose-500/10 text-rose-400 text-[10px] font-bold px-1.5 py-0.5 rounded border border-rose-500/20 uppercase tracking-wider"
+                  >Loss</span
+                >
+              </div>
+              <div class="flex items-center gap-2 text-slate-400 text-xs">
+                <span>Oct 20, 2023</span>
+              </div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-slate-500"
+            >chevron_right</span
+          >
+        </div>
+      </div>
+      <div
+        class="absolute bottom-0 w-full h-20 bg-slate-900/95 backdrop-blur-xl border-t border-white/10 flex items-center justify-around px-4 pb-4 z-20"
+      >
+        <div class="flex flex-col items-center gap-1 text-slate-500">
+          <span class="material-symbols-outlined text-[28px]">analytics</span>
+          <span class="text-[10px] font-medium">Analysis</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-slate-500">
+          <span class="material-symbols-outlined text-[28px]">school</span>
+          <span class="text-[10px] font-medium">Lessons</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-slate-500">
+          <span class="material-symbols-outlined text-[28px]"
+            >account_tree</span
+          >
+          <span class="text-[10px] font-medium">Openings</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-primary">
+          <span
+            class="material-symbols-outlined text-[28px]"
+            style="font-variation-settings: 'FILL' 1"
+            >history</span
+          >
+          <span class="text-[10px] font-bold">History</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-slate-500">
+          <div
+            class="size-7 rounded-full bg-slate-700 overflow-hidden border border-white/20"
+          >
+            <img
+              alt="Profile"
+              class="w-full h-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRO_HqiP0XcuCGcO-TxdOzKmqwX8DTtVUkjIxRJ2U7SkOoWKkE3dr9cRWmNBW_e6JL049lSS3uaQ7o6RKeAPo7Pq3cZfLJZG2xFHS-29IGrvvY7VESSJtDlc-IpN25fjOXqZ90SkmlV-oBeayKjruYxhz-yql3shN25vVZ72TB481pc1qnGUFR8EYfkf7r3EdJuBvFaMxiVZt4hqTB4Qscb9FRmKrthk8y4RDLIeEwg14_hP8lHGPvB2YD8Q4wp3lnrRSFwp65-v0"
+            />
+          </div>
+          <span class="text-[10px] font-medium">Profile</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -24,7 +24,7 @@ export default function Analize() {
                 <span class="material-symbols-outlined text-sm">
                   content_paste
                 </span>
-                Paste Sample
+                Colar
               </button>
             </div>
             <div class="relative group">

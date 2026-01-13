@@ -14,10 +14,6 @@ export default function Footer() {
           <span className="material-symbols-outlined">database</span>
           <span className="text-[10px] font-medium">Games</span>
         </button>
-        <button className="flex flex-col items-center gap-1 text-slate-500 hover:text-primary transition-colors">
-          <span className="material-symbols-outlined">person</span>
-          <span className="text-[10px] font-medium">Profile</span>
-        </button>
       </div>
     </nav>
   );
