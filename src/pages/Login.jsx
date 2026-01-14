@@ -47,9 +47,12 @@ export default function Login() {
 
         <div className="mt-8 text-center">
           <p className="text-white/50 text-sm">
-            New to Chess Tutor Ai?
-            <a className="text-primary font-bold ml-1 hover:underline" href="#">
-              Create an account
+            Novo em Chess Tutor Ai?
+            <a
+              className="text-primary font-bold ml-1 hover:underline"
+              href="/create-account"
+            >
+              Criar uma conta
             </a>
           </p>
         </div>
