@@ -1,35 +1,69 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Games() {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
+  const [pgnInput, setPgnInput] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+
+  const navigate = useNavigate();
   const username = localStorage.getItem("username");
+
+  const fetchGames = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/users/${username}/games`
+      );
+      setGames(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar jogos:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [username]);
 
   useEffect(() => {
     if (!username) {
       navigate("/");
       return;
     }
+    fetchGames();
+  }, [username, navigate, fetchGames]);
 
-    async function fetchGames() {
-      try {
-        const response = await axios.get(
-          `http://localhost:8000/users/${username}/games`
-        );
-        setGames(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar jogos:", error);
-      } finally {
-        setLoading(false);
-      }
+  const handleSaveGame = async () => {
+    if (!pgnInput.trim()) {
+      alert("Por favor, cole um PGN antes de salvar.");
+      return;
     }
 
-    fetchGames();
-  }, [username, navigate]);
+    setIsSaving(true);
+
+    try {
+      await axios.post(
+        `http://localhost:8000/users/${username}/games`,
+        pgnInput,
+        {
+          headers: {
+            "Content-Type": "text/plain",
+          },
+        }
+      );
+      setPgnInput("");
+      fetchGames();
+    } catch (error) {
+      console.error("Erro ao salvar:", error);
+      if (error.response && error.response.data && error.response.data.detail) {
+        alert(`Erro: ${error.response.data.detail}`);
+      } else {
+        alert("Erro ao salvar a partida. Verifique se o PGN é válido.");
+      }
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   if (!username) return null;
 
@@ -47,7 +81,17 @@ export default function Games() {
             <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
               PGN Input
             </h3>
-            <button className="text-xs text-slate-400 flex items-center gap-1 hover:text-white transition-colors">
+            <button
+              onClick={async () => {
+                try {
+                  const text = await navigator.clipboard.readText();
+                  setPgnInput(text);
+                } catch (err) {
+                  console.error("Falha ao ler clipboard", err);
+                }
+              }}
+              className="text-xs text-slate-400 flex items-center gap-1 hover:text-white transition-colors"
+            >
               <span className="material-symbols-outlined text-sm">
                 content_paste
               </span>
@@ -56,13 +100,26 @@ export default function Games() {
           </div>
           <div className="relative group">
             <textarea
+              value={pgnInput}
+              onChange={(e) => setPgnInput(e.target.value)}
               className="w-full h-48 bg-slate-900/50 border border-slate-700 rounded-lg p-4 font-mono text-sm text-primary/90 focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none placeholder:text-slate-600"
-              placeholder="1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 d6..."
+              placeholder="1. e4 e5 2. Nf3 Nc6 3. Bb5 a6..."
             ></textarea>
           </div>
-          <button className="w-full mt-4 bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-lg flex items-center justify-center gap-2 transition-all emerald-glow active:scale-[0.98]">
-            <span className="material-symbols-outlined">analytics</span>
-            Analyze Game
+
+          <button
+            onClick={handleSaveGame}
+            disabled={isSaving}
+            className="w-full mt-4 bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-lg flex items-center justify-center gap-2 transition-all emerald-glow active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSaving ? (
+              <span>Salvando...</span>
+            ) : (
+              <>
+                <span className="material-symbols-outlined">analytics</span>
+                Salvar Pgn
+              </>
+            )}
           </button>
         </div>
       </section>
@@ -107,11 +164,13 @@ export default function Games() {
                 <div className="flex flex-col gap-0.5">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-white text-base">
-                      {game.opponent}
+                      {game.opponent || "Unknown Opponent"}
                     </span>
-                    <span className="text-xs text-slate-400 font-mono border border-white/10 px-1 rounded">
-                      {game.result}
-                    </span>
+                    {game.result && (
+                      <span className="text-xs text-slate-400 font-mono border border-white/10 px-1 rounded">
+                        {game.result}
+                      </span>
+                    )}
                   </div>
                   <span className="text-xs text-slate-500">{game.date}</span>
                 </div>
