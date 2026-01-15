@@ -68,7 +68,7 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <div className="size-8 bg-emerald-500 rounded-lg flex items-center justify-center">
               <span className="material-symbols-outlined text-slate-900 font-bold">
-                query_stats
+                chess_king
               </span>
             </div>
             <span className="text-xl font-bold tracking-tight text-white">
@@ -90,7 +90,7 @@ export default function Header() {
             className={getLinkClass("/analize")}
           >
             <span className="material-symbols-outlined">search</span>
-            <span>Analyze Game</span>
+            <span>Analise seu jogo</span>
           </Link>
 
           <Link
@@ -99,7 +99,7 @@ export default function Header() {
             className={getLinkClass("/coach")}
           >
             <span className="material-symbols-outlined">school</span>
-            <span>AI Coach</span>
+            <span>Tutor AI</span>
           </Link>
 
           <Link
