@@ -5,22 +5,18 @@ import axios from "axios";
 export default function CreateAccount() {
   const navigate = useNavigate();
 
-  // 1. Estado dos dados do formulário
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
 
-  // 2. Estado para mostrar/esconder senha
   const [showPassword, setShowPassword] = useState(false);
 
-  // 3. CORREÇÃO: O Estado de erro estava faltando!
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // Limpa o erro ao digitar
     if (error) setError("");
   };
 
@@ -31,7 +27,6 @@ export default function CreateAccount() {
     }
 
     try {
-      // CORREÇÃO: Verifique se a rota é /register ou /auth/register (usei /auth/register baseado no seu backend anterior)
       const response = await axios.post("http://localhost:8000/register", {
         username: formData.username,
         email: formData.email,
@@ -69,7 +64,6 @@ export default function CreateAccount() {
       </div>
 
       <div className="w-full max-w-md bg-white/5 dark:bg-[#19332a]/40 backdrop-blur-xl border border-white/10 dark:border-[#326754]/50 rounded-xl p-6 space-y-4">
-        {/* USERNAME */}
         <div className="flex flex-col gap-2">
           <p className="text-white text-sm font-medium leading-normal pl-1">
             Username
@@ -102,7 +96,6 @@ export default function CreateAccount() {
           )}
         </div>
 
-        {/* EMAIL */}
         <div className="flex flex-col gap-2">
           <p className="text-white text-sm font-medium leading-normal pl-1">
             Email Address
@@ -129,7 +122,6 @@ export default function CreateAccount() {
           )}
         </div>
 
-        {/* PASSWORD */}
         <div className="flex flex-col gap-2">
           <p className="text-white text-sm font-medium leading-normal pl-1">
             Password
@@ -159,7 +151,6 @@ export default function CreateAccount() {
           </div>
         </div>
 
-        {/* Erro Genérico */}
         {error &&
           !error.toLowerCase().includes("usuário") &&
           !error.toLowerCase().includes("email") && (
