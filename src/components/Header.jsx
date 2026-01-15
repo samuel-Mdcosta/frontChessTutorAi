@@ -83,9 +83,7 @@ export default function Header() {
           </button>
         </div>
 
-        {/* --- NAVEGAÇÃO DINÂMICA AQUI --- */}
         <nav className="flex-1 space-y-2">
-          {/* Link para Analize */}
           <Link
             to="/analize"
             onClick={closeMenu}
@@ -95,7 +93,6 @@ export default function Header() {
             <span>Analyze Game</span>
           </Link>
 
-          {/* Link para Coach */}
           <Link
             to="/coach"
             onClick={closeMenu}
@@ -111,7 +108,7 @@ export default function Header() {
             className={getLinkClass("/games")}
           >
             <span className="material-symbols-outlined">database</span>
-            <span>AI Coach</span>
+            <span>Salvar Jogos</span>
           </Link>
         </nav>
       </div>

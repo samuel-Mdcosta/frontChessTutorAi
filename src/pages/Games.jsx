@@ -18,7 +18,7 @@ export default function Games() {
     async function fetchGames() {
       try {
         const response = await axios.get(
-          `http://localhost:8000/user/${username}/games`
+          `http://localhost:8000/users/${username}/games`
         );
         setGames(response.data);
       } catch (error) {
