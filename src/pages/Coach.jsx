@@ -49,7 +49,6 @@ export default function Coach() {
         `http://localhost:8000/users/${username}/report`
       );
 
-      // O backend retorna { "tutor_report": "texto..." }
       if (response.data.tutor_report) {
         setAiReport(response.data.tutor_report);
       } else {
@@ -92,7 +91,9 @@ export default function Coach() {
           ) : (
             <>
               <span className="material-symbols-outlined">auto_awesome</span>
-              <span className="truncate">Generate Full AI Report</span>
+              <span className="truncate">
+                Gerar relatório completo do seu perfil
+              </span>
             </>
           )}
         </button>
