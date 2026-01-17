@@ -33,7 +33,7 @@ export default function Analize() {
           headers: {
             "Content-Type": "text/plain",
           },
-        }
+        },
       );
 
       setAiReport(response.data);
@@ -65,7 +65,7 @@ export default function Analize() {
           <div className="glass-card rounded-xl p-5 mb-4">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
-                PGN Input
+                Coloque seu PGN
               </h3>
               <button
                 onClick={handlePaste}
@@ -102,7 +102,7 @@ export default function Analize() {
               ) : (
                 <>
                   <span className="material-symbols-outlined">analytics</span>
-                  Analyze Game
+                  Analise do jogo
                 </>
               )}
             </button>
@@ -114,7 +114,7 @@ export default function Analize() {
             <span className="material-symbols-outlined text-primary">
               description
             </span>
-            <h3 className="text-lg font-bold text-white">Coach Report</h3>
+            <h3 className="text-lg font-bold text-white">relatório do Coach</h3>
           </div>
 
           <div className="min-h-[100px] bg-slate-900/30 rounded-xl border border-white/5 p-4">

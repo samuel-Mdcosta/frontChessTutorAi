@@ -20,7 +20,7 @@ export default function Coach() {
     async function fetchGameCount() {
       try {
         const response = await axios.get(
-          `http://localhost:8000/users/${username}/games`
+          `http://localhost:8000/users/${username}/games`,
         );
         setGameCount(response.data.length);
       } catch (error) {
@@ -36,7 +36,7 @@ export default function Coach() {
   const handleGenerateReport = async () => {
     if (gameCount === 0) {
       alert(
-        "Você precisa salvar pelo menos uma partida antes de gerar o relatório!"
+        "Você precisa salvar pelo menos uma partida antes de gerar o relatório!",
       );
       return;
     }
@@ -46,7 +46,7 @@ export default function Coach() {
 
     try {
       const response = await axios.post(
-        `http://localhost:8000/users/${username}/report`
+        `http://localhost:8000/users/${username}/report`,
       );
 
       if (response.data.tutor_report) {
@@ -101,7 +101,7 @@ export default function Coach() {
 
       <div className="flex items-center justify-between px-4 pb-2 pt-6">
         <h2 className="text-white text-xl font-bold leading-tight tracking-tight">
-          AI Analysis
+          relatório do coach
         </h2>
         <span className="text-xs text-primary bg-primary/10 px-2 py-1 rounded-full border border-primary/20">
           melhore com a ia

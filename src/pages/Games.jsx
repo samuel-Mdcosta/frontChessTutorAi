@@ -15,7 +15,7 @@ export default function Games() {
   const fetchGames = useCallback(async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/users/${username}/games`
+        `http://localhost:8000/users/${username}/games`,
       );
       setGames(response.data);
     } catch (error) {
@@ -49,7 +49,7 @@ export default function Games() {
           headers: {
             "Content-Type": "text/plain",
           },
-        }
+        },
       );
       setPgnInput("");
       fetchGames();
@@ -79,7 +79,7 @@ export default function Games() {
         <div className="glass-card rounded-xl p-5 mb-4">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
-              PGN Input
+              Coloque seu PGN
             </h3>
             <button
               onClick={async () => {

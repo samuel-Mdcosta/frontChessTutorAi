@@ -22,7 +22,7 @@ export default function Footer() {
       <div className="max-w-lg mx-auto flex justify-around items-center">
         <Link to="/analize" className={getLinkClass("/analize")}>
           <span className="material-symbols-outlined">dashboard</span>
-          <span className="text-[10px] font-medium">Analyze</span>
+          <span className="text-[10px] font-medium">analise</span>
         </Link>
 
         <Link to="/coach" className={getLinkClass("/coach")}>
@@ -32,7 +32,7 @@ export default function Footer() {
 
         <Link to="/games" className={getLinkClass("/games")}>
           <span className="material-symbols-outlined">database</span>
-          <span className="text-[10px] font-medium">Games</span>
+          <span className="text-[10px] font-medium">Jogos</span>
         </Link>
       </div>
     </nav>
