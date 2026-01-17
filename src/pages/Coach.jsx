@@ -20,7 +20,7 @@ export default function Coach() {
     async function fetchGameCount() {
       try {
         const response = await axios.get(
-          `http://localhost:8000/users/${username}/games`,
+          `https://chesstutor-ai.onrender.com/users/${username}/games`,
         );
         setGameCount(response.data.length);
       } catch (error) {
@@ -46,7 +46,7 @@ export default function Coach() {
 
     try {
       const response = await axios.post(
-        `http://localhost:8000/users/${username}/report`,
+        `https://chesstutor-ai.onrender.com/users/${username}/report`,
       );
 
       if (response.data.tutor_report) {

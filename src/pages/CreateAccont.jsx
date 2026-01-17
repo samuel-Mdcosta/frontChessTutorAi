@@ -27,11 +27,14 @@ export default function CreateAccount() {
     }
 
     try {
-      const response = await axios.post("http://localhost:8000/register", {
-        username: formData.username,
-        email: formData.email,
-        password: formData.password,
-      });
+      const response = await axios.post(
+        "https://chesstutor-ai.onrender.com/register",
+        {
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        },
+      );
 
       if (response.status === 200) {
         alert("Conta criada com sucesso!");

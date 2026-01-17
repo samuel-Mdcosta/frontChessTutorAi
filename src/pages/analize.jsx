@@ -27,7 +27,7 @@ export default function Analize() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/analyze",
+        "https://chesstutor-ai.onrender.com/analyze",
         pgnInput,
         {
           headers: {

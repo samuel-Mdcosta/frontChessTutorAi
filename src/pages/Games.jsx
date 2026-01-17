@@ -15,7 +15,7 @@ export default function Games() {
   const fetchGames = useCallback(async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/users/${username}/games`,
+        `https://chesstutor-ai.onrender.com/users/${username}/games`,
       );
       setGames(response.data);
     } catch (error) {
@@ -43,7 +43,7 @@ export default function Games() {
 
     try {
       await axios.post(
-        `http://localhost:8000/users/${username}/games`,
+        `https://chesstutor-ai.onrender.com/users/${username}/games`,
         pgnInput,
         {
           headers: {

@@ -23,10 +23,13 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:8000/login", {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        "https://chesstutor-ai.onrender.com/login",
+        {
+          email: email,
+          password: password,
+        },
+      );
 
       localStorage.setItem("username", response.data.username);
 
