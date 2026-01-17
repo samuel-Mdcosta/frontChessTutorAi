@@ -39,7 +39,7 @@ export default function Login() {
           setError(detail);
         } else if (Array.isArray(detail)) {
           setError(
-            detail[0].msg || "Dados inválidos. Verifique email e senha."
+            detail[0].msg || "Dados inválidos. Verifique email e senha.",
           );
         } else {
           setError("Erro desconhecido no login.");
@@ -57,14 +57,14 @@ export default function Login() {
       <div className="space-y-6">
         <div className="flex flex-col gap-2">
           <label className="text-white/70 text-sm font-medium ml-1">
-            Email Address
+            Email
           </label>
           <div className="relative">
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full h-14 bg-slate-900/50 border border-slate-700 rounded-lg px-4 text-white placeholder:text-white/30 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-              placeholder="name@example.com"
+              placeholder="nome@exemplo.com"
               type="email"
             />
           </div>
@@ -72,14 +72,12 @@ export default function Login() {
 
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-center ml-1">
-            <label className="text-white/70 text-sm font-medium">
-              Password
-            </label>
+            <label className="text-white/70 text-sm font-medium">Senha</label>
             <a
               className="text-primary text-xs font-semibold hover:underline"
               href="#"
             >
-              Forgot?
+              Esqueceu ?
             </a>
           </div>
 
@@ -88,7 +86,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full h-14 bg-slate-900/50 border border-slate-700 rounded-lg pl-4 pr-12 text-white placeholder:text-white/30 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-              placeholder="Enter your password"
+              placeholder="Coloque sua senha"
               type={showPassword ? "text" : "password"}
             />
             <span
@@ -111,7 +109,7 @@ export default function Login() {
           disabled={loading}
           className="w-full h-14 bg-primary text-background-dark font-bold text-lg rounded-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-2 mt-4 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {loading ? "Entrando..." : "Sign In"}
+          {loading ? "Entrando..." : "Entrar"}
           {!loading && <span className="material-symbols-outlined">login</span>}
         </button>
 
