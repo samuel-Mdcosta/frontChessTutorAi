@@ -21,6 +21,7 @@ export default function Analize() {
       alert("Por favor, insira um PGN válido.");
       return;
     }
+    const currentUser = localStorage.getItem("username");
 
     setLoading(true);
     setAiReport("");
@@ -32,6 +33,7 @@ export default function Analize() {
         {
           headers: {
             "Content-Type": "text/plain",
+            username: currentUser,
           },
         },
       );
