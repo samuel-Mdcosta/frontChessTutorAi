@@ -29,12 +29,9 @@ export default function Analize() {
     try {
       const response = await axios.post(
         "https://chesstutor-ai.onrender.com/analyze",
-        pgnInput,
         {
-          headers: {
-            "Content-Type": "text/plain",
-            username: currentUser,
-          },
+          pgn: pgnInput,
+          player_color: userColor,
         },
       );
 
