@@ -31,7 +31,7 @@ export default function Analize() {
         "https://chesstutor-ai.onrender.com/analyze",
         {
           pgn: pgnInput,
-          player_color: userColor,
+          username: currentUser,
         },
       );
 
