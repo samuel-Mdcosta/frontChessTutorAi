@@ -6,6 +6,7 @@ export default function Analize() {
   const [aiReport, setAiReport] = useState("");
   const [gameData, setGameData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [selectedColor, setSelectedColor] = useState(null);
 
   const handlePaste = async () => {
     try {
@@ -33,6 +34,7 @@ export default function Analize() {
         {
           pgn: pgnInput,
           username: currentUser,
+          color: selectedColor,
         },
       );
 
@@ -61,6 +63,33 @@ export default function Analize() {
             </span>
             Comece a analisar suas partidas agora mesmo!
           </p>
+        </div>
+
+        <div className="flex gap-3 mb-3">
+          <button
+            onClick={() => setSelectedColor("white")}
+            className="flex-1 py-3 rounded-xl font-bold text-sm transition-all border-2"
+            style={{
+              backgroundColor: "#ffffff",
+              color: "#111111",
+              borderColor: selectedColor === "white" ? "#22c55e" : "transparent",
+              boxShadow: selectedColor === "white" ? "0 0 0 2px #22c55e" : "none",
+            }}
+          >
+            Brancas
+          </button>
+          <button
+            onClick={() => setSelectedColor("black")}
+            className="flex-1 py-3 rounded-xl font-bold text-sm transition-all border-2"
+            style={{
+              backgroundColor: "#111111",
+              color: "#f1f5f9",
+              borderColor: selectedColor === "black" ? "#22c55e" : "transparent",
+              boxShadow: selectedColor === "black" ? "0 0 0 2px #22c55e" : "none",
+            }}
+          >
+            Pretas
+          </button>
         </div>
 
         <section className="mb-8">
