@@ -31,7 +31,7 @@ export default function Login() {
         },
       );
 
-      localStorage.setItem("username", response.data.username);
+      sessionStorage.setItem("username", response.data.username);
 
       navigate("/analize");
     } catch (err) {
