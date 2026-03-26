@@ -4,6 +4,7 @@ import axios from "axios";
 export default function Analize() {
   const [pgnInput, setPgnInput] = useState("");
   const [aiReport, setAiReport] = useState("");
+  const [gameData, setGameData] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handlePaste = async () => {
@@ -35,7 +36,9 @@ export default function Analize() {
         },
       );
 
-      setAiReport(response.data);
+      const data = response.data;
+      setAiReport(data.ai_report);
+      setGameData(data.game_data);
     } catch (error) {
       console.error("Erro na análise:", error);
       alert("Erro ao conectar com a IA. Verifique se o servidor está rodando.");
