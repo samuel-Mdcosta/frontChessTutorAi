@@ -1,8 +1,14 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    sessionStorage.clear();
+    navigate("/");
+  };
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
@@ -111,6 +117,14 @@ export default function Header() {
             <span>Salvar Jogos</span>
           </Link>
         </nav>
+
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-4 p-4 rounded-xl transition-all text-slate-400 hover:text-red-400 hover:bg-red-500/10 w-full"
+        >
+          <span className="material-symbols-outlined">logout</span>
+          <span>Sair</span>
+        </button>
       </div>
     </>
   );
