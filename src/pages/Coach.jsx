@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Coach() {
   const navigate = useNavigate();
-  const username = localStorage.getItem("username");
+  const username = sessionStorage.getItem("username");
 
   const [gameCount, setGameCount] = useState(0);
   const [aiReport, setAiReport] = useState("");

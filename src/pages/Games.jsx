@@ -10,7 +10,7 @@ export default function Games() {
   const [isSaving, setIsSaving] = useState(false);
 
   const navigate = useNavigate();
-  const username = localStorage.getItem("username");
+  const username = sessionStorage.getItem("username");
 
   const fetchGames = useCallback(async () => {
     try {

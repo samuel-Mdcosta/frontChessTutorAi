@@ -23,7 +23,7 @@ export default function Analize() {
       alert("Por favor, insira um PGN válido.");
       return;
     }
-    const currentUser = localStorage.getItem("username");
+    const currentUser = sessionStorage.getItem("username");
 
     setLoading(true);
     setAiReport("");
@@ -72,8 +72,10 @@ export default function Analize() {
             style={{
               backgroundColor: "#ffffff",
               color: "#111111",
-              borderColor: selectedColor === "white" ? "#22c55e" : "transparent",
-              boxShadow: selectedColor === "white" ? "0 0 0 2px #22c55e" : "none",
+              borderColor:
+                selectedColor === "white" ? "#22c55e" : "transparent",
+              boxShadow:
+                selectedColor === "white" ? "0 0 0 2px #22c55e" : "none",
             }}
           >
             Brancas
@@ -84,8 +86,10 @@ export default function Analize() {
             style={{
               backgroundColor: "#111111",
               color: "#f1f5f9",
-              borderColor: selectedColor === "black" ? "#22c55e" : "transparent",
-              boxShadow: selectedColor === "black" ? "0 0 0 2px #22c55e" : "none",
+              borderColor:
+                selectedColor === "black" ? "#22c55e" : "transparent",
+              boxShadow:
+                selectedColor === "black" ? "0 0 0 2px #22c55e" : "none",
             }}
           >
             Pretas
