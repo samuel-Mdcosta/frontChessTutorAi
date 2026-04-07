@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Analize() {
@@ -7,6 +7,13 @@ export default function Analize() {
   const [gameData, setGameData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [selectedColor, setSelectedColor] = useState(null);
+
+  useEffect(() => {
+    if (!username) {
+      navigate("/");
+      return;
+    }
+  }, [username]);
 
   const handlePaste = async () => {
     try {
