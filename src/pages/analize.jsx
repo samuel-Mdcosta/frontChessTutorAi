@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Analize() {
+  const navigate = useNavigate();
+  const username = sessionStorage.getItem("username");
+
   const [pgnInput, setPgnInput] = useState("");
   const [aiReport, setAiReport] = useState("");
   const [gameData, setGameData] = useState(null);
